@@ -5,6 +5,7 @@ using UnityEngine;
 public class CatchTheResult : MonoBehaviour
 {
     public string result;
+    [SerializeField] private List<Hanacaraka> hanacarakas;
     // Start is called before the first frame update
     void Start()
     {

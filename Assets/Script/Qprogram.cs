@@ -20,14 +20,15 @@ public class Qprogram : MonoBehaviour
 
     private List<LineRenderer> gestureLinesRenderer = new List<LineRenderer>();
     private LineRenderer currentGestureLineRenderer;
+    [SerializeField] private Transform gestureParent;
 
     private int vertexCount = 0;
     private RuntimePlatform platform;
 
     public string gestureResult = "";
-
     [SerializeField] private TextMeshProUGUI gestureName;
     [SerializeField] private string newGestureName;
+    
 
 
     // Start is called before the first frame update
@@ -54,6 +55,7 @@ public class Qprogram : MonoBehaviour
                             panelPosition.y - panelSize.y / 2f,
                             panelSize.x,
                             panelSize.y);
+        
 
         if (platform == RuntimePlatform.Android || platform == RuntimePlatform.IPhonePlayer)
         {
@@ -75,7 +77,7 @@ public class Qprogram : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 ++strokeId;
-                Transform tmpGesture = Instantiate(brushPrefab, transform.position, transform.rotation) as Transform;
+                Transform tmpGesture = Instantiate(brushPrefab, transform.position, transform.rotation, gestureParent);
                 currentGestureLineRenderer = tmpGesture.GetComponent<LineRenderer>();
 
                 gestureLinesRenderer.Add(currentGestureLineRenderer);
@@ -114,7 +116,7 @@ public class Qprogram : MonoBehaviour
     }
     public void AddNewPattern()
     {
-        Debug.Log(points.Count > 0 && newGestureName != "");
+       
         if (points.Count > 0 && newGestureName != "")
         {
             string fileName = String.Format(Application.dataPath + "/Resources/GestureSet/10-stylus-MEDIUM/{1}-{2}.xml", Application.dataPath, newGestureName, DateTime.Now.ToFileTime());
@@ -123,9 +125,8 @@ public class Qprogram : MonoBehaviour
 
             GestureIO.WriteGesture(points.ToArray(), newGestureName, fileName);
 
-            newGestureName = "";
-            Debug.Log(newGestureName);
-            Debug.Log(newGestureName.ToString());
+            newGestureName = ""; 
+            Debug.Log("new pattern added: " + fileName);
         }
     }
 

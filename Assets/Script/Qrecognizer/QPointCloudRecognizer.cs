@@ -94,8 +94,12 @@ namespace QDollarGestureRecognizer
                     gestureClass = template.Name;
                 }
             }
+
+            string Score = minDistance.ToString();
+
             //return gestureClass == "" ? new Result() { GestureClass = "No match", Score = 0.0f } : new Result() { GestureClass = gestureClass, Score = Mathf.Max((minDistance - 2.0f) / -2.0f, 0.0f) };
-            return gestureClass;
+            return gestureClass +" : "+ Score;
+
         }
 
         /// <summary>
