@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: Hanacaraka
   m_EditorClassIdentifier: 
   HanacarakaMember:
-  - ha
-  - na
-  - ca
-  - ra
-  - ka
-  - da
-  - ta
-  - sa
-  - wa
-  - la
-  - pa
-  - dha
-  - ja
-  - ya
-  - nya
-  - ma
-  - ga
-  - ba
-  - tha
-  - nga
+  - {fileID: 11400000, guid: d01c1344ce6f23542b87f7df7fd1359b, type: 2}
+  - {fileID: 11400000, guid: dc6fb3b7a04e2c6469fb76741a5fe595, type: 2}
+  - {fileID: 11400000, guid: be0a7a4bd46eac64b81858dd0f9f3bb3, type: 2}
+  - {fileID: 11400000, guid: 9866ef1efa43a1b499c36a9cbfe9a944, type: 2}
+  - {fileID: 11400000, guid: 4b35219e8368f7140a52f027c5d97cb5, type: 2}
+  - {fileID: 11400000, guid: 51a4fd0387d6dc74e974f12ad0910130, type: 2}
+  - {fileID: 11400000, guid: 818c1b9c328f33545b0c643f1b8f8f0c, type: 2}
+  - {fileID: 11400000, guid: f58da9779fb750848906bdfe7395a9d3, type: 2}
+  - {fileID: 11400000, guid: 0d7d15d48e9687f47a8eee625a8c9e28, type: 2}
+  - {fileID: 11400000, guid: ec966ef52ca6fac48960e6de69202839, type: 2}
+  - {fileID: 11400000, guid: 5635455743adaaf4ca1a777cc1fa0578, type: 2}
+  - {fileID: 11400000, guid: 822c5d1d20959c646a56c18d5a595421, type: 2}
+  - {fileID: 11400000, guid: 660717767b15ec04c9c7c272afdf4632, type: 2}
+  - {fileID: 11400000, guid: f2d93a9736c4b8248b3ce8de134f822f, type: 2}
+  - {fileID: 11400000, guid: 21dafffaa1446f64d8f6ed5494e7399b, type: 2}
+  - {fileID: 11400000, guid: 8a12041ac9026ab4a820bbd55aa5a5cc, type: 2}
+  - {fileID: 11400000, guid: f2afd729e32754a47b9eb76db1f2f61e, type: 2}
+  - {fileID: 11400000, guid: 5690f2ce08707ba4ab036dd8f308aa74, type: 2}
+  - {fileID: 11400000, guid: 2d4a210df562d164cab8e997d10774b3, type: 2}
+  - {fileID: 11400000, guid: 3c1fb1ec36fac384e828a9f4da1c47e7, type: 2}

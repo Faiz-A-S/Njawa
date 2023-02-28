@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Hanacaraka : ScriptableObject
 {
-    public List<string> HanacarakaMember;
+    public List<HanacarakaSolo> HanacarakaMember;
 }
