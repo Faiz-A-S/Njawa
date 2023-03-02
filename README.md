@@ -1,1 +1,3 @@
 # Njawa
+
+learn Hanacaraka
