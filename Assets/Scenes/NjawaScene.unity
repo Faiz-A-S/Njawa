@@ -447,7 +447,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Obake
-  Health: 50
+  MaxHealth: 50
+  CurrentHealth: 0
   Damage: 5
 --- !u!1 &78279386
 GameObject:
@@ -864,9 +865,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Brad
-  Health: 100
+  MaxHealth: 100
+  CurrentHealth: 0
   Damage: 2
-  MultDmg: 0
+  equipment: 10
 --- !u!1 &403377634
 GameObject:
   m_ObjectHideFlags: 0
@@ -4599,6 +4601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1204387408}
+  - component: {fileID: 1204387409}
   m_Layer: 5
   m_Name: Player Section
   m_TagString: Untagged
@@ -4629,6 +4632,22 @@ RectTransform:
   m_AnchoredPosition: {x: -810, y: -91}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1204387409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204387407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7df8d8a5a1160499226646a7677431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroUI: 1
+  enemyUI: 0
+  nameChara: {fileID: 1088025732}
+  healthBar: {fileID: 38124111}
 --- !u!1 &1206565688
 GameObject:
   m_ObjectHideFlags: 0
@@ -5133,7 +5152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1458112745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6417,6 +6436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1948730358}
+  - component: {fileID: 1948730359}
   m_Layer: 5
   m_Name: Enemy Section
   m_TagString: Untagged
@@ -6447,6 +6467,22 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1948730359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948730357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7df8d8a5a1160499226646a7677431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroUI: 0
+  enemyUI: 1
+  nameChara: {fileID: 622655566}
+  healthBar: {fileID: 1712485185}
 --- !u!1 &1980799150
 GameObject:
   m_ObjectHideFlags: 0
@@ -6537,7 +6573,8 @@ MonoBehaviour:
   hanacarakaImage: {fileID: 1644006094}
   maxRounds: 3
   timerMax: 60
-  tempPoints: 0
+  attackBonus: 0
+  defendBonus: 0
 --- !u!1 &2096641734
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,16 +5,27 @@ using UnityEngine;
 public class Ikimono : MonoBehaviour
 {
     public string Name;
-    public int Health;
+    public float MaxHealth;
+    public float CurrentHealth;
     public int Damage;
+
+    private void Start()
+    {
+        CurrentHealth = MaxHealth;
+    }
 
     public virtual void TakeDamage(int damage)
     {
-        Health -= damage;
-        if(Health <= 0)
+        CurrentHealth -= damage;
+        if(CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    public virtual void Die()
+    {
+        Destroy(gameObject);
     }
 
     public virtual int GiveDamage()

@@ -20,8 +20,8 @@ public class RollHanacarakas : MonoBehaviour
     public GAMESTATE CURRENTGAMESTATE;
     public GAMESTATE TEMPGAMESTATE;
 
-    [SerializeField] private GameObject Hero;
-    [SerializeField] private GameObject Enemy;
+    public GameObject Hero;
+    public GameObject Enemy;
 
     [SerializeField] private List<Hanacaraka> hanacarakas;
     [SerializeField] private TextMeshProUGUI hanacarakaNameText;
@@ -42,11 +42,13 @@ public class RollHanacarakas : MonoBehaviour
     private bool hit;
 
     private int points;
-    public int tempPoints;
+    public int attackBonus;
+    public int defendBonus;
 
     // Start is called before the first frame update
     void Start()
     {
+        points = 1;
         //CURRENTGAMESTATE = (GAMESTATE)Random.Range(1, 3);
         CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
         familySize = hanacarakas[0].HanacarakaMember.Count;
@@ -75,6 +77,7 @@ public class RollHanacarakas : MonoBehaviour
 
     private void ActionProgress(GameObject attacker, GameObject defender)
     {
+        hit = false;
         if (!hit)
         {
             int dmg = attacker.GetComponent<Ikimono>().GiveDamage();
@@ -102,7 +105,7 @@ public class RollHanacarakas : MonoBehaviour
 
     private void RollHana()
     {
-        if (rolled != true && waktuHabis == false && points < maxRounds)
+        if (rolled != true && waktuHabis == false && points <= maxRounds)
         {
             rolled = true;
             currentHanacaraka = hanacarakas[0].HanacarakaMember[Random.Range(0, familySize)];
@@ -127,9 +130,10 @@ public class RollHanacarakas : MonoBehaviour
             FindObjectOfType<Qprogram>().DeleteDrawing();
         }
 
-        if (waktuHabis || points == maxRounds)
+        if (waktuHabis || points > maxRounds)
         {
-            tempPoints = points;
+            FindObjectOfType<Qprogram>().DeleteDrawing();
+            attackBonus = points;
             TEMPGAMESTATE = CURRENTGAMESTATE;
             CURRENTGAMESTATE = GAMESTATE.PLAYERACTION;
             points = 1;
@@ -141,7 +145,6 @@ public class RollHanacarakas : MonoBehaviour
     {
         CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
         getNameInputField.gameObject.SetActive(true);
-        //hanacarakaImage.gameObject.SetActive(true);
         pointRoundText.text = points.ToString() + "/" + maxRounds;
 
         RollHana();
@@ -149,10 +152,10 @@ public class RollHanacarakas : MonoBehaviour
         tempName = currentHanacaraka.HanacarakaName;
 
         //check is on button
-        if (waktuHabis == true || points == maxRounds)
+        if (waktuHabis == true || points > maxRounds)
         {
-            tempPoints = points;
-            //hanacarakaImage.gameObject.SetActive(false);
+            defendBonus = points;
+            hanacarakaImage.sprite = default;
             getNameInputField.gameObject.SetActive(false);
             TEMPGAMESTATE = CURRENTGAMESTATE;
             CURRENTGAMESTATE = GAMESTATE.ENEMYACTION;
