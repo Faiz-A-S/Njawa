@@ -1,3 +1,3 @@
 # Njawa
 
-learn Hanacaraka
+learn Hanacaraka with $Q
