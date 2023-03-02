@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 48484358}
   - component: {fileID: 48484357}
   - component: {fileID: 48484356}
+  - component: {fileID: 48484359}
   m_Layer: 0
   m_Name: 10 - Blankey_Floating (32 x 32)_0
   m_TagString: Untagged
@@ -426,13 +427,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48484355}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.94235075, y: -0.46996826, z: 9.850982}
+  m_LocalPosition: {x: 0.75, y: -0.46996826, z: 9.850982}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1980799151}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &48484359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48484355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588e3c23bd1863b4987498bf3d67edf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Obake
+  Health: 50
+  Damage: 5
 --- !u!1 &78279386
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 349797151}
   - component: {fileID: 349797150}
+  - component: {fileID: 349797152}
   m_Layer: 0
   m_Name: 1 - Agent_Mike_Hurt (32 x 32)
   m_TagString: Untagged
@@ -834,6 +851,22 @@ Transform:
   m_Father: {fileID: 1980799151}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &349797152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349797149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a198ad7e2bb7c4db5bcffe504b953a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Brad
+  Health: 100
+  Damage: 2
+  MultDmg: 0
 --- !u!1 &403377634
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,7 +1032,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 31.17
+  m_GlobalPointSize: 30
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -4290,15 +4323,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.17
-  m_fontSizeBase: 31.17
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4409,6 +4442,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1568535256}
   - {fileID: 1204387408}
   - {fileID: 1948730358}
   - {fileID: 1809319424}
@@ -4587,9 +4621,8 @@ RectTransform:
   - {fileID: 1761944991}
   - {fileID: 1229777901}
   - {fileID: 1088025731}
-  - {fileID: 1568535256}
   m_Father: {fileID: 1085338664}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4763,8 +4796,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 213, y: -384}
-  m_SizeDelta: {x: 262.1815, y: 106.9315}
+  m_AnchoredPosition: {x: 150, y: -414}
+  m_SizeDelta: {x: 200, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1264530722
 MonoBehaviour:
@@ -4813,6 +4846,18 @@ MonoBehaviour:
       - m_Target: {fileID: 480276209}
         m_TargetAssemblyTypeName: Qprogram, Assembly-CSharp
         m_MethodName: RecognizePattern
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2080744502}
+        m_TargetAssemblyTypeName: RollHanacarakas, Assembly-CSharp
+        m_MethodName: EnemyTurnRecognized
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5088,7 +5133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1458112745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5172,17 +5217,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568535255}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1204387408}
-  m_RootOrder: 3
+  m_Father: {fileID: 1085338664}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 279, y: -124}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -147}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1568535257
@@ -5239,7 +5284,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5361,7 +5406,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: Masukkan Jawaban
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5388,15 +5433,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.17
-  m_fontSizeBase: 31.17
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -5545,11 +5590,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1085338664}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -215.2}
+  m_AnchoredPosition: {x: 0, y: -230}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679014497
@@ -5779,7 +5824,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5832,11 +5877,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1085338664}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -21, y: -99}
+  m_AnchoredPosition: {x: 0, y: -72}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809319425
@@ -6266,8 +6311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -211.40627, y: -383.99994}
-  m_SizeDelta: {x: 262.1815, y: 106.9315}
+  m_AnchoredPosition: {x: -157, y: -414}
+  m_SizeDelta: {x: 200, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1934920925
 MonoBehaviour:
@@ -6395,7 +6440,7 @@ RectTransform:
   - {fileID: 622655565}
   - {fileID: 123106177}
   m_Father: {fileID: 1085338664}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6480,17 +6525,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CURRENTGAMESTATE: 0
+  TEMPGAMESTATE: 0
+  Hero: {fileID: 349797149}
+  Enemy: {fileID: 48484355}
   hanacarakas:
   - {fileID: 11400000, guid: adec9c310dc5fb247b8559792b5902ab, type: 2}
-  hanacarakaName: {fileID: 1679014497}
-  pointRound: {fileID: 1809319425}
-  timerCount: {fileID: 1568535257}
-  getName: {fileID: 472227932}
-  hanacarakaImg: {fileID: 1458112746}
-  Result: 
-  POINTS: 1
-  MaxRounds: 3
+  hanacarakaNameText: {fileID: 1679014497}
+  pointRoundText: {fileID: 1809319425}
+  timerCountText: {fileID: 1568535257}
+  getNameInputField: {fileID: 472227932}
+  hanacarakaImage: {fileID: 1644006094}
+  maxRounds: 3
   timerMax: 60
+  tempPoints: 0
 --- !u!1 &2096641734
 GameObject:
   m_ObjectHideFlags: 0
