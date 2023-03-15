@@ -7,17 +7,18 @@ public class Ikimono : MonoBehaviour
     public string Name;
     public float MaxHealth;
     public float CurrentHealth;
-    public int Damage;
+    public float Damage;
 
     private void Start()
     {
         CurrentHealth = MaxHealth;
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
-        if(CurrentHealth <= 0)
+        Debug.Log(Name + " take " + damage + " damage");
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -25,11 +26,13 @@ public class Ikimono : MonoBehaviour
 
     public virtual void Die()
     {
-        Destroy(gameObject);
+        Debug.Log("ded");
+        //Destroy(gameObject);
     }
 
-    public virtual int GiveDamage()
+    public virtual float GiveDamage()
     {
+        //Debug.Log(Name + " give " + Damage + " damage");
         return Damage;
     }
 }

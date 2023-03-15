@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class Hero : Ikimono
 {
-    private int MultDmg;
-    private int DefendMult;
-
+    private float _bonusMult;
     public float equipment;
+    
 
     private void Update()
     {
-        MultDmg = GameObject.Find("GetsTheResult").GetComponent<RollHanacarakas>().attackBonus;
-        DefendMult = GameObject.Find("GetsTheResult").GetComponent<RollHanacarakas>().defendBonus;
+        _bonusMult = GameObject.Find("GetsTheResult").GetComponent<RollHanacarakas>().BonusPoint;
     }
 
-    public override int GiveDamage()
+    public override float GiveDamage()
     {
-        int total = Damage * MultDmg;
+        float total = base.GiveDamage() * _bonusMult;
+        Debug.Log(_bonusMult);
         return total;
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
-        //base.TakeDamage(damage);
-        float meth = (damage * DefendMult) / equipment;
-        CurrentHealth -= damage - meth;
+        //Damage Negation = (Equipment Defense / (Equipment Defense + Attacker's Attack Power)) * 100%
+        float dmgNegationPersen = (equipment * _bonusMult / (equipment + damage)) * 100f;
+        float dmgNegation = ((damage * dmgNegationPersen) / 100f);
+        Debug.Log(_bonusMult);
+        base.TakeDamage(damage - dmgNegation);
     }
 }

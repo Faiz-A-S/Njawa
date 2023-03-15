@@ -11,52 +11,57 @@ public enum GAMESTATE
     ENEMYTURN,
     WON,
     LOST,
-    PLAYERACTION,
-    ENEMYACTION
+    WAIT
 }
 
 public class RollHanacarakas : MonoBehaviour
 {
-    public GAMESTATE CURRENTGAMESTATE;
-    public GAMESTATE TEMPGAMESTATE;
+    private GAMESTATE CURRENTGAMESTATE;
+    private GAMESTATE TEMPGAMESTATE;
 
-    public GameObject Hero;
-    public GameObject Enemy;
+    [field:SerializeField] public GameObject Hero { get; private set; }
+    [field:SerializeField] public GameObject Enemy { get; private set; }
 
-    [SerializeField] private List<Hanacaraka> hanacarakas;
-    [SerializeField] private TextMeshProUGUI hanacarakaNameText;
-    [SerializeField] private TextMeshProUGUI pointRoundText;
-    [SerializeField] private TextMeshProUGUI timerCountText;
-    [SerializeField] private TMP_InputField getNameInputField;
-    [SerializeField] private Image hanacarakaImage;
-    [SerializeField] private int maxRounds;
+    [Header("Hanacaraka List")]
+    [SerializeField] private List<Hanacaraka> _hanacarakaList;
+    private HanacarakaSolo _currentHanacaraka;
+    private int _familySize;
+    private string _tempName;
+    
 
-    [SerializeField] private float timerMax = 60f;
-    private bool rolled;
-    private float currentTimer;
-    private bool waktuHabis;
+    [Header("Rounds")]
+    [SerializeField] private int _maxRounds;
+    [SerializeField] private float _timerMax = 60f;
+    private float _currentTimer;
+    private bool _waktuHabis;
+    private bool _rolled;
+    private bool _hit;
+    private int _points;
+    private int _skipPoints;
+    public float BonusPoint { get; private set; }
 
-    private int familySize;
-    private string tempName;
-    private HanacarakaSolo currentHanacaraka;
-    private bool hit;
-
-    private int points;
-    public int attackBonus;
-    public int defendBonus;
+    [Header("GUI")]
+    [SerializeField] private TextMeshProUGUI _hanacarakaNameText;
+    [SerializeField] private TextMeshProUGUI _pointRoundText;
+    [SerializeField] private TextMeshProUGUI _timerCountText;
+    [SerializeField] private TMP_InputField _getNameInputField;
+    [SerializeField] private Image _hanacarakaImage;
 
     // Start is called before the first frame update
     void Start()
     {
-        points = 1;
+        ResetAllAttribut();
         //CURRENTGAMESTATE = (GAMESTATE)Random.Range(1, 3);
         CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
-        familySize = hanacarakas[0].HanacarakaMember.Count;
+        _familySize = _hanacarakaList[0].HanacarakaMember.Count;
+        _getNameInputField.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        BonusPoint = _points - _skipPoints;
+
         TimerCount();
         switch (CURRENTGAMESTATE)
         {
@@ -66,25 +71,23 @@ public class RollHanacarakas : MonoBehaviour
             case GAMESTATE.ENEMYTURN:
                 EnemyTurn();
                 break;
-            case GAMESTATE.PLAYERACTION:
-                ActionProgress(Hero, Enemy);
-                break;
-            case GAMESTATE.ENEMYACTION:
-                ActionProgress(Enemy, Hero);
-                break;
         }
     }
 
-    private void ActionProgress(GameObject attacker, GameObject defender)
+    private IEnumerator ActionProgress(GameObject attacker, GameObject defender)
     {
-        hit = false;
-        if (!hit)
+        _hit = false;
+        if (!_hit)
         {
-            int dmg = attacker.GetComponent<Ikimono>().GiveDamage();
+            float dmg = attacker.GetComponent<Ikimono>().GiveDamage();
             defender.GetComponent<Ikimono>().TakeDamage(dmg);
-            hit = true;
+            _hit = true;
         }
 
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+
+        ResetAllAttribut();
         if (TEMPGAMESTATE == GAMESTATE.PLAYERTURN)
         {
             CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
@@ -97,84 +100,98 @@ public class RollHanacarakas : MonoBehaviour
 
     private void TimerCount()
     {
-        currentTimer += Time.deltaTime;
-        int currINTTimer = (int)timerMax - (int)currentTimer;
-        timerCountText.text = currINTTimer.ToString();
-        waktuHabis = currentTimer > timerMax;
+        _currentTimer += Time.deltaTime;
+        int currINTTimer = (int)_timerMax - (int)_currentTimer;
+        _timerCountText.text = currINTTimer.ToString();
+        _waktuHabis = _currentTimer > _timerMax;
     }
 
     private void RollHana()
     {
-        if (rolled != true && waktuHabis == false && points <= maxRounds)
+        if (_rolled != true && _waktuHabis == false && _points <= _maxRounds)
         {
-            rolled = true;
-            currentHanacaraka = hanacarakas[0].HanacarakaMember[Random.Range(0, familySize)];
+            _rolled = true;
+            _currentHanacaraka = _hanacarakaList[0].HanacarakaMember[Random.Range(0, _familySize)];
         }
+        _hanacarakaNameText.text = _currentHanacaraka.HanacarakaName;
+        _tempName = _currentHanacaraka.HanacarakaName;
     }
 
     private void PlayerTurn()
     {
         CURRENTGAMESTATE = GAMESTATE.PLAYERTURN;
 
-        pointRoundText.text = points.ToString() + "/" + maxRounds;
+        _pointRoundText.text = _points.ToString() + "/" + _maxRounds;
         string Result = FindObjectOfType<Qprogram>().gestureResult;
+        _hanacarakaImage.sprite = default;
 
         RollHana();
-        hanacarakaNameText.text = currentHanacaraka.HanacarakaName;
 
-        if (hanacarakaNameText.text == Result)
+        if (_hanacarakaNameText.text == Result)
         {
-            hanacarakaNameText.text = "";
-            points += 1;
-            rolled = false;
+            _hanacarakaNameText.text = "";
+            _points += 1;
+            _rolled = false;
             FindObjectOfType<Qprogram>().DeleteDrawing();
         }
 
-        if (waktuHabis || points > maxRounds)
+        if (_waktuHabis || _points > _maxRounds)
         {
             FindObjectOfType<Qprogram>().DeleteDrawing();
-            attackBonus = points;
+            
+            StartCoroutine(ActionProgress(Hero, Enemy));
             TEMPGAMESTATE = CURRENTGAMESTATE;
-            CURRENTGAMESTATE = GAMESTATE.PLAYERACTION;
-            points = 1;
-            currentTimer = 0;
+            CURRENTGAMESTATE = GAMESTATE.WAIT;
         }
     }
 
     private void EnemyTurn()
     {
         CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
-        getNameInputField.gameObject.SetActive(true);
-        pointRoundText.text = points.ToString() + "/" + maxRounds;
+        _getNameInputField.gameObject.SetActive(true);
+        _pointRoundText.text = _points.ToString() + "/" + _maxRounds;
 
         RollHana();
-        hanacarakaImage.sprite = currentHanacaraka.HanacarakaImg;
-        tempName = currentHanacaraka.HanacarakaName;
+        _hanacarakaImage.sprite = _currentHanacaraka.HanacarakaImg;
 
         //check is on button
-        if (waktuHabis == true || points > maxRounds)
+        if (_waktuHabis == true || _points > _maxRounds)
         {
-            defendBonus = points;
-            hanacarakaImage.sprite = default;
-            getNameInputField.gameObject.SetActive(false);
+            _getNameInputField.gameObject.SetActive(false);
+            StartCoroutine(ActionProgress(Enemy, Hero));
             TEMPGAMESTATE = CURRENTGAMESTATE;
-            CURRENTGAMESTATE = GAMESTATE.ENEMYACTION;
-            points = 1;
-            currentTimer = 0;
+            CURRENTGAMESTATE = GAMESTATE.WAIT;
         }
+    }
+
+    public void Skip()
+    {
+        _rolled = false;
+        _points += 1;
+        RollHana();
+        _skipPoints += 1;
+    }
+
+    private void ResetAllAttribut()
+    {
+        _rolled = false;
+        BonusPoint = 1;
+        _points = 1;
+        _currentTimer = 0;
+        _skipPoints = 0;
     }
 
     public void EnemyTurnRecognized()
     {
-        if (tempName == getNameInputField.text)
+        if (_tempName == _getNameInputField.text)
         {
-            getNameInputField.text = "";
-            points += 1;
-            rolled = false;
+            _getNameInputField.text = "";
+            _points += 1;
+            _rolled = false;
         } 
         else
         {
-            hanacarakaNameText.SetText("Kosong");
+            _hanacarakaNameText.SetText("Kosong");
         }
     }
 }
