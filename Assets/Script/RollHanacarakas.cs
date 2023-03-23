@@ -32,6 +32,7 @@ public class RollHanacarakas : MonoBehaviour
     [Header("Rounds")]
     [SerializeField] private int _maxRounds;
     [SerializeField] private float _timerMax = 60f;
+    [SerializeField] private float _waitForSecondAfterTurn;
     private float _currentTimer;
     private bool _waktuHabis;
     private bool _rolled;
@@ -40,21 +41,31 @@ public class RollHanacarakas : MonoBehaviour
     private int _skipPoints;
     public float BonusPoint { get; private set; }
 
+    [Header("Multiple Answer")]
+    [SerializeField] private GameObject _buttonPrefab;
+    [SerializeField] private Transform _buttonLocation;
+    [SerializeField] private int _howManyAnswer;
+    private List<Button> _answerButton;
+
     [Header("GUI")]
     [SerializeField] private TextMeshProUGUI _hanacarakaNameText;
     [SerializeField] private TextMeshProUGUI _pointRoundText;
     [SerializeField] private TextMeshProUGUI _timerCountText;
     [SerializeField] private TMP_InputField _getNameInputField;
     [SerializeField] private Image _hanacarakaImage;
+    [SerializeField] private Image _panelImage;
 
+    private Qprogram _qProgram;
+    
     // Start is called before the first frame update
     void Start()
     {
         ResetAllAttribut();
-        //CURRENTGAMESTATE = (GAMESTATE)Random.Range(1, 3);
-        CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
+        CURRENTGAMESTATE = (GAMESTATE)Random.Range(1, 3);
+        //CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
         _familySize = _hanacarakaList[0].HanacarakaMember.Count;
         _getNameInputField.gameObject.SetActive(false);
+        _qProgram = FindObjectOfType<Qprogram>();
     }
 
     // Update is called once per frame
@@ -84,8 +95,8 @@ public class RollHanacarakas : MonoBehaviour
             _hit = true;
         }
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
+        //waits for seconds.
+        yield return new WaitForSeconds(_waitForSecondAfterTurn);
 
         ResetAllAttribut();
         if (TEMPGAMESTATE == GAMESTATE.PLAYERTURN)
@@ -120,10 +131,12 @@ public class RollHanacarakas : MonoBehaviour
     private void PlayerTurn()
     {
         CURRENTGAMESTATE = GAMESTATE.PLAYERTURN;
-
+        _hanacarakaNameText.enabled = true;
+        _qProgram.enabled = true;
+        _panelImage.enabled = true;
         _pointRoundText.text = _points.ToString() + "/" + _maxRounds;
-        string Result = FindObjectOfType<Qprogram>().gestureResult;
-        _hanacarakaImage.sprite = default;
+        string Result = _qProgram.gestureResult;
+        _hanacarakaImage.enabled = false;
 
         RollHana();
 
@@ -132,12 +145,12 @@ public class RollHanacarakas : MonoBehaviour
             _hanacarakaNameText.text = "";
             _points += 1;
             _rolled = false;
-            FindObjectOfType<Qprogram>().DeleteDrawing();
+            _qProgram.DeleteDrawing();
         }
 
         if (_waktuHabis || _points > _maxRounds)
         {
-            FindObjectOfType<Qprogram>().DeleteDrawing();
+            _qProgram.DeleteDrawing();
             
             StartCoroutine(ActionProgress(Hero, Enemy));
             TEMPGAMESTATE = CURRENTGAMESTATE;
@@ -145,13 +158,25 @@ public class RollHanacarakas : MonoBehaviour
         }
     }
 
+    private void RollAllAnswer()
+    {
+        for (int i = 0; i < _howManyAnswer; i++)
+        {
+            Instantiate(_buttonPrefab, _buttonLocation.position * i, Quaternion.identity);
+        }
+    }
+
     private void EnemyTurn()
     {
         CURRENTGAMESTATE = GAMESTATE.ENEMYTURN;
+        _hanacarakaNameText.enabled = false;
+        _qProgram.enabled = false;
+        _panelImage.enabled = false;
         _getNameInputField.gameObject.SetActive(true);
         _pointRoundText.text = _points.ToString() + "/" + _maxRounds;
 
         RollHana();
+        _hanacarakaImage.enabled = true;
         _hanacarakaImage.sprite = _currentHanacaraka.HanacarakaImg;
 
         //check is on button
