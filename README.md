@@ -1,3 +1,3 @@
 # Njawa
 
-learn Hanacaraka with $Q
+learn Hanacaraka with $Q for final project
